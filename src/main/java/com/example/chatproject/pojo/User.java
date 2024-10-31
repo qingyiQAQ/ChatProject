@@ -2,8 +2,8 @@ package com.example.chatproject.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 import org.intellij.lang.annotations.Pattern;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.annotation.Validated;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Validated
 @AllArgsConstructor
 public class User implements Serializable {
-    @NonNull
+    @NotNull
     int id;
     @Pattern("^\\S{5,16}$")
     String username;
