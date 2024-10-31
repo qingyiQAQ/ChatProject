@@ -1,7 +1,6 @@
 package com.example.chatproject;
 
-import com.example.chatproject.Service.impl.UserServiceImpl;
-import com.example.chatproject.utils.JwtUtil;
+import com.example.chatproject.Service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ChatProjectApplicationTests {
 
 	@Autowired
-	private UserServiceImpl userServiceImpl;
+	private UserService userService;
 
 	@Test
 	void contextLoads() {
-		System.out.println(userServiceImpl.findByUsername("cc").toString());;
+		System.out.println(userService.findByUsername("cc").toString());;
 	}
 
 }
