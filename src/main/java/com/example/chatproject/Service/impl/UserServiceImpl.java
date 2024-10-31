@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         }
         else{
             User user = userMapper.findByUserName(username);
-            redisTemplate.opsForValue().set("user:"+username,user);
+            if(user!=null)redisTemplate.opsForValue().set("user:"+username,user);
             return user;
         }
     }
