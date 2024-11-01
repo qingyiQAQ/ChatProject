@@ -2,20 +2,16 @@ package com.example.chatproject.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.intellij.lang.annotations.Pattern;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.validation.annotation.Validated;
-
-import java.io.Serializable;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Data
-@Validated
 @AllArgsConstructor
-public class User implements Serializable {
+public class User{
     @NotNull
-    int id;
-    @Pattern("^\\S{5,16}$")
+    long id;
+    @Pattern(regexp = "^\\S{5,16}$")
     String username;
-    @Pattern("^\\S{5,16}$")
+    @Pattern(regexp = "^\\S{5,16}$")
     String password;
 }

@@ -1,6 +1,7 @@
 package com.example.chatproject;
 
 import com.example.chatproject.Service.UserService;
+import com.example.chatproject.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ class ChatProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println(userService.findByUsername("cc").toString());;
+		JwtUtil.generateToken("111111");
 	}
 
 }
