@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result<String> login(String username, String password){
+    public Result<String> login(@Pattern(regexp = "^\\S{5,16}$")String username,@Pattern(regexp = "^\\S{5,16}$") String password){
         //根据用户名查询用户
         User user = userService.findByUsername(username);
         //判断该用户是否存在
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(String username, String password){
+    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
         //根据用户名查询用户
         User user = userService.findByUsername(username);
         if(user==null){

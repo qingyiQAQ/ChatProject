@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
         }
         else{
             User user = userMapper.findByUserName(username);
-            if(user!=null)redisTemplate.opsForValue().set("user:"+username,user);
+            if(user!=null)redisTemplate.opsForValue().set("user:"+username,user,10, TimeUnit.HOURS);
             return user;
         }
     }

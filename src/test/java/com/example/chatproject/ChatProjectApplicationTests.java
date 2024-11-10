@@ -14,7 +14,7 @@ class ChatProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
-		JwtUtil.generateToken("111111");
+		userService.findByUsername("chencheng");
 	}
 
 }
