@@ -1,19 +1,20 @@
 package com.example.chatproject.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class User implements Serializable {
+public class ChatGroup implements Serializable {
     @NotNull
     long id;
     @Pattern(regexp = "^\\S{5,16}$")
-    String username;
-    @Pattern(regexp = "^\\S{5,16}$")
-    String password;
+    String name;
     String message;
+    @NotNull
+    String owner;
 }

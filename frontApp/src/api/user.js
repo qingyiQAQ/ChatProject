@@ -21,3 +21,7 @@ export const userLoginService = (loginData)=>{
 
     return request.post('/user/login',params);
 }
+
+export const userfindByIdService = (id)=>{
+    return request.get('/user/findById?id='+id);
+}

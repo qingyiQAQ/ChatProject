@@ -1,13 +1,12 @@
 package com.example.chatproject.interceptors;
 
+import com.example.chatproject.pojo.UserMessage;
 import com.example.chatproject.utils.JwtUtil;
 import com.example.chatproject.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.Map;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -17,7 +16,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         //验证token
         try {
-            JwtUtil.validateToken(token);
+            UserMessage userMessage = JwtUtil.validateToken(token);
+            ThreadLocalUtil.set(userMessage);
             return true;
         } catch (Exception e) {
             //http响应状态码为401

@@ -3,6 +3,7 @@ package com.example.chatproject.controller;
 import com.example.chatproject.Service.UserService;
 import com.example.chatproject.pojo.Result;
 import com.example.chatproject.pojo.User;
+import com.example.chatproject.pojo.UserMessage;
 import com.example.chatproject.utils.JwtUtil;
 import com.example.chatproject.utils.SnowFlakeUtil;
 import com.example.chatproject.utils.ThreadLocalUtil;
@@ -28,10 +29,11 @@ public class UserController {
         }
         //判断密码是否正确 loginUser对象中的password是密文
         if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
+            UserMessage userMessage = new UserMessage(user.getId(),user.getUsername(),user.getMessage());
             //登录成功
-            String token = JwtUtil.generateToken(String.valueOf(user.getId()));
+            String token = JwtUtil.generateToken(userMessage);
             //用户信息存入用户线程
-            ThreadLocalUtil.set(user);
+            ThreadLocalUtil.set(userMessage);
             return Result.success(token);
         }
         return Result.error("用户名或密码错误");
@@ -43,7 +45,7 @@ public class UserController {
         User user = userService.findByUsername(username);
         if(user==null){
             password=DigestUtils.md5DigestAsHex(password.getBytes());
-            userService.insert(new User(SnowFlakeUtil.nextId(),username,password));
+            userService.insert(new User(SnowFlakeUtil.nextId(),username,password,null));
             return Result.success();
         }
         return Result.error("用户名已占用");

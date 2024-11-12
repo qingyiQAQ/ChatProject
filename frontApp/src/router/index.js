@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 //导入组件
 import LoginVue from '@/views/login.vue'
 import LayoutVue from '@/views/layout.vue'
+import AllGroupVue from '@/views/group/allGroup.vue'
+import ManageGroupVue from '@/views/group/manageGroup.vue'
 
 //定义路由关系
 const routes = [
@@ -12,7 +14,11 @@ const routes = [
     },
     {
         path: '/',
-        component: LayoutVue
+        component: LayoutVue,
+        children: [
+            {path:'/group/all',component:AllGroupVue},
+            {path:'/group/manage',component:ManageGroupVue}
+        ]
     }
 ]
 
