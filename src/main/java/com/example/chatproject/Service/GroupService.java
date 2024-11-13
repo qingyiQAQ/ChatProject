@@ -1,17 +1,24 @@
 package com.example.chatproject.Service;
 
-import com.example.chatproject.pojo.ChatGroup;
+import com.example.chatproject.pojo.Group;
+import com.example.chatproject.pojo.GroupAndBool;
 
 import java.util.ArrayList;
 
 public interface GroupService {
-    void insert(ChatGroup group);
+    void insert(Group group);
 
-    ChatGroup findById(long id);
+    Group findById(long id);
 
-    ArrayList<ChatGroup> findByName(String name);
+    ArrayList<Group> findByName(String name);
 
-    ArrayList<ChatGroup> findAll();
+    ArrayList<GroupAndBool> findAll(long userId);
 
-    void update(ChatGroup chatGroup);
+    void update(Group group);
+
+    void join(long id,long userId, long groupId);
+
+    void quit(long userId, long groupId);
+
+    boolean isJoined(long userId, long groupId);
 }

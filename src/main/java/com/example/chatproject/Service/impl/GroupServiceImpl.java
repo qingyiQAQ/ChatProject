@@ -2,7 +2,8 @@ package com.example.chatproject.Service.impl;
 
 import com.example.chatproject.Service.GroupService;
 import com.example.chatproject.mapper.GroupMapper;
-import com.example.chatproject.pojo.ChatGroup;
+import com.example.chatproject.pojo.Group;
+import com.example.chatproject.pojo.GroupAndBool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -20,37 +21,50 @@ public class GroupServiceImpl implements GroupService {
     private RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void insert(ChatGroup group) {
+    public void insert(Group group) {
         groupMapper.insert(group);
     }
 
     @Override
-    public ChatGroup findById(long id) {
+    public Group findById(long id) {
         if(Boolean.TRUE.equals(redisTemplate.hasKey("group:"+id))){
-            return (ChatGroup)redisTemplate.opsForValue().get("group:"+id);
+            return (Group)redisTemplate.opsForValue().get("group:"+id);
         }
         else{
-            ChatGroup group = groupMapper.findById(id);
+            Group group = groupMapper.findById(id);
             if(group!=null)redisTemplate.opsForValue().set("group:"+id,group,10, TimeUnit.HOURS);
             return group;
         }
     }
 
     @Override
-    public ArrayList<ChatGroup> findByName(String name) {
+    public ArrayList<Group> findByName(String name) {
         return groupMapper.findByName(name);
     }
 
     @Override
-    public ArrayList<ChatGroup> findAll() {
-        return groupMapper.findAll();
+    public ArrayList<GroupAndBool> findAll(long id) {
+        return groupMapper.findAll(id);
     }
 
     @Override
-    synchronized public void update(ChatGroup group) {
-        if(Boolean.TRUE.equals(redisTemplate.hasKey("group:"+group.getId()))){
-            redisTemplate.opsForValue().set("group:"+group.getId(),group);
-        }
+    synchronized public void update(Group group) {
+        redisTemplate.opsForValue().set("group:"+group.getId(),group);
         groupMapper.update(group);
+    }
+
+    @Override
+    public void join(long id,long userId, long groupId) {
+        groupMapper.join(id,userId,groupId);
+    }
+
+    @Override
+    public void quit(long userId, long groupId) {
+        groupMapper.quit(userId,groupId);
+    }
+
+    @Override
+    public boolean isJoined(long userId, long groupId) {
+        return groupMapper.isJoined(userId,groupId);
     }
 }

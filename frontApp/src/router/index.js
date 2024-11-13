@@ -14,6 +14,7 @@ const routes = [
     },
     {
         path: '/',
+        redirect:'/group/all',
         component: LayoutVue,
         children: [
             {path:'/group/all',component:AllGroupVue},
